@@ -34,8 +34,7 @@ class Read_temp(object):
     
     def __init__(self,device_file):
         self.device_file = device_file
-        
-    
+            
     def read_temp_raw(self):
         f = open(self.device_file, 'r')
         line = f.readlines()
@@ -55,7 +54,7 @@ class Read_temp(object):
                 temp_f = temp_c * 9.0 / 5.0 +32.0
                 return str(temp_c)
         except:
-            return '300' # if cant read the temp from theread pin, return this value (sensors can read max 125 C)
+            return '300' # if cant read the temp from the read pin, return this value (sensors can read max 125 C)
             pass
 
 # Create a layout for the GUI, three columns for three sensors
@@ -76,10 +75,7 @@ col_3 =[
     [sg.VPush()],[sg.VPush()],[sg.VPush()],[sg.VPush()],[sg.Text(size=(10, 3), key='temp3',font=("Helvetica", 20), text_color='white',justification='center')],
      [sg.Text(size=(10,3),key='wtext_3')],
     [sg.Input(key='input_3',size=(10,10)),sg.Button(button_text = 'Change warning temp',key='button_3')]
-
-     ]
-
-
+    ]
 
 layout =[[sg.Text('Temperature Sensors Dashboard', font=("Helvetica", 20), text_color='white')],
         [sg.Frame(layout=col_1,title='Temperature Sensor -1-',visible=True, key='frame_1'),
@@ -102,7 +98,7 @@ while True:
     if event in (sg.WIN_CLOSED, 'Exit'):
         break
  
- #Reading temperatures from sensors
+#Reading temperatures from sensors
         
     tmp1 = str(Read_temp(device_file1))
     
@@ -110,7 +106,7 @@ while True:
     
     tmp3 = str(Read_temp(device_file3))
     
-    #Warning text on secreen
+#Warning text on secreen
     if float(tmp1)>float(warning_1):
         window[f'wtext_1'].update('WARNING!')
     else:
@@ -126,7 +122,7 @@ while True:
     else:
         window[f'wtext_3'].update('')
 
-    #Warning Buttons
+#Warning Buttons
     if event == 'button_1':
         warning_1 =values['input_1']
 
@@ -136,7 +132,7 @@ while True:
     if event == 'button_3':
         warning_3 =values['input_3']
 
-    #Checking if temp sensor plug in, if not make column invisible. Controlling both power pin and read pin value
+#Checking if temp sensor plug in, if not make column invisible. Controlling both power pin and read pin value.
     if tmp1 !='300' and str(tmp1) !='85.0': #"85" is if power pin not connected, can read 85 only
         window['frame_1'].update(visible=True)
         window[f'temp1'].update(tmp1)
