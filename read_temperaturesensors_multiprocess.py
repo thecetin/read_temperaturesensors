@@ -37,7 +37,7 @@ def read_temp_raw(self):
   f.close()
   return line
         
-    def reeadTemp(devicefile):
+ def reeadTemp(devicefile):
       try:
         lines = self.read_temp_raw()
         while lines[0].strip()[-3:] != 'YES':
@@ -101,7 +101,7 @@ while True:
     #tmp2 = str(Read_temp(device_file2))
     
     #tmp3 = str(Read_temp(device_file3))
-    with concurrentfutures.ProcessPoolExecuter() as executer:
+    with concurrent.futures.ProcessPoolExecuter() as executer:
       p1 = executer.submit(readTemp,device_file1)
       p2 = executer.submit(readTemp,device_file2)
       p3 = executer.submit(readTemp,device_file3)
